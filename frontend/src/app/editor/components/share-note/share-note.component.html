@@ -1,0 +1,81 @@
+<div class="h-full">
+    <h1 class="h-12 flex justify-center items-center font-bold text-xl">
+        <mat-icon class="me-1">share</mat-icon>
+        <div>Share Note {{ noteSelected?.title }}</div>
+    </h1>
+    <div class="s:max-h-[calc(100%-48px)] flex max-s:flex-col">
+        <div class="s:w-1/2">    
+            <h2 class="h-12 mx-2 flex justify-center items-center text-lg text-white font-bold bg-blue-300">
+                Select a user to share the note
+            </h2>
+            <form class="flex flex-col justify-center mt-2">
+                <mat-form-field appearance="outline" class="mx-2 mt-2">
+                    <mat-label>Select a user</mat-label>
+                    <mat-chip-grid #chipGrid>
+                        <mat-chip-row *ngFor="let userChip of chipUsers" (removed)="removeChip(userChip)">
+                            {{ userChip }}
+                            <button matChipRemove>
+                                <mat-icon>cancel</mat-icon>
+                            </button>
+                        </mat-chip-row>
+                    </mat-chip-grid>
+                    <input placeholder="New User..." #userInput [formControl]="userControl"
+                           [matChipInputFor]="chipGrid" 
+                           [matAutocomplete]="auto"
+                           (matChipInputTokenEnd)="addChip($event)"/>
+                    <mat-autocomplete #auto="matAutocomplete" 
+                                      [displayWith]="displayOptionUser" 
+                                      (optionSelected)="onUserOptionsSelectionChanged($event)">
+                        <mat-option *ngFor="let userOption of filteredUsersOptions | async" [value]="userOption">
+                            {{userOption?.username}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <mat-form-field appearance="outline" color="primary" class="w-1/2 mx-2 mt-2">
+                    <mat-label>Select a privilege</mat-label>
+                    <mat-select (selectionChange)="onRightSelectionChanged($event)">
+                        <mat-option [value]="right.READ">Read</mat-option>
+                        <mat-option [value]="right.WRITE">Write</mat-option>
+                        <mat-option [value]="right.SHARE">Share</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="mx-2 mt-2">
+                    <mat-label>Send a message (optional)</mat-label>
+                    <input matInput [formControl]="msgControl"/>
+                </mat-form-field>
+            </form>
+           
+
+            <div class="mt-1 flex justify-center">
+                <button mat-flat-button (click)="onShareNote()" class="w-32">
+                    Share
+                </button>
+            </div>
+            <div class="flex items-center mt-2">
+                <mat-slide-toggle class="ms-4" labelPosition="after">
+                    Make this note public
+                </mat-slide-toggle>
+            </div>
+        </div>
+        <div class="s:w-1/2 max-s:h-[calc(50%+48px)] max-s:mt-4 max-s:mb-16">
+            <h2 class="h-12 mx-2 flex justify-center items-center text-lg text-white font-bold bg-blue-400">
+                List of sharing users for this note
+            </h2>
+            <div class="h-[calc(100%-48px)] overflow-auto">
+                <div class="grid grid-cols-3 h-12 mx-2 mt-3">
+                    <div class="col-start-1 flex justify-center items-center font-bold bg-blue-300">Username</div>
+                    <div class="col-start-2 flex justify-center items-center font-bold bg-red-300">Right</div>
+                </div>
+                <div *ngFor="let sharedUser of sharedUsers" class="grid grid-cols-3 mx-2 mt-3">
+                    <div class="col-start-1 flex items-center ps-2 bg-blue-300">{{ sharedUser.username }}</div>
+                    <div class="col-start-2 flex items-center ps-2 bg-red-300">{{ sharedUser.right | lowercase }}</div>
+                    <div class="flex justify-center items-center bg-green-100">
+                        <button mat-icon-button onkeypress="" (click)="onUnshareNote(sharedUser)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

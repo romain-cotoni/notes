@@ -1,0 +1,42 @@
+<div class="flex flex-col justify-center items-center w-screen h-screen bg-gray-200 custom-bg-login">
+    <div *ngIf="isError" class="w-1/3 mb-4">
+        <app-message [isError]="isError" [msg]="errorMsg"></app-message>
+    </div>
+    <h1 class="mb-8 font-bold text-center text-3xl">
+        Login
+    </h1>
+    <form [formGroup]="form" class="flex flex-col items-center">
+        <mat-form-field appearance="outline" class="w-full bg-white pt-4 px-4">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="usernameControl" (keydown.enter)="onLogin()"/>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-full mb-8 pt-4 px-4 bg-white">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hide() ? 'password' : 'text'" formControlName="passwordControl" (keydown.enter)="onLogin()"/>
+            <button mat-icon-button
+                    matSuffix
+                    (click)="onHidePassword($event)">
+                <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <button mat-raised-button type="submit" color="primary" (click)="onLogin()" class="w-full">
+            <mat-icon>login</mat-icon>
+            Login
+        </button>
+    </form>
+    <div class="mt-8 text-center text-black text-xl">
+        No account yet !
+        <span class="hover:text-sky-700 hover:font-bold hover:cursor-pointer"
+              (keydown.enter)="onRegister()"
+              (click)="onRegister()">
+            Sign Up
+        </span>
+    </div>
+    <div class="mt-8 text-center text-black text-xl">
+        <span class="hover:text-sky-700 hover:font-bold hover:cursor-pointer"
+              (keydown.enter)="onLostPassword()"
+              (click)="onLostPassword()">
+            Lost password
+        </span>
+    </div>
+</div>

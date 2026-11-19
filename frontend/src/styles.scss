@@ -1,0 +1,189 @@
+
+@use '@angular/material' as mat;
+  
+
+@include mat.core();
+
+
+$Angular-NotesV2-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
+  ),
+  density: (
+    scale: 0,
+  )
+));
+
+
+:root {
+  @include mat.all-component-themes($Angular-NotesV2-theme);
+}
+
+
+// Tailwind
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+// Ngx Quill
+@import "../node_modules/quill/dist/quill.snow.css";
+@import "../node_modules/quill/dist/quill.bubble.css";
+
+* {
+  user-select: none;
+  box-sizing: border-box;
+}
+
+html, body { height: 100%; }
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+input {
+  user-select:text;
+}
+
+
+// QUILL EDITOR OVERRIDE CSS
+quill-editor {
+  height: calc(100% - 3rem);
+}
+
+
+quill-editor .ql-toolbar.ql-snow {
+  height: 3rem;
+  border: none;
+}
+
+
+quill-editor .ql-container {
+  height: calc(100% - 3rem);
+}
+
+
+quill-editor .ql-container.ql-snow {
+  height: 100%;
+  border: none;
+}
+
+
+quill-editor .ql-editor {
+  height   : 100%;
+  overflow : auto;
+  font-size: 18px;
+  color    : black;
+}
+
+
+//ANGULAR MATERIAL COMPONENTS OVERRIDE
+button {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+//SMALL MAT ICON BTN
+.custom-small-icon-btn {
+  display         : inline-flex !important;
+  align-items     : center !important;
+  justify-content : center !important;
+  width           : 24px !important;
+  height          : 24px !important;
+  margin          : 0 !important;
+  padding         : 0 !important;
+}
+
+.custom-small-icon-btn .mat-icon {
+  display        : inline-flex !important;
+  align-items    : center !important;
+  justify-content: center !important;
+  width          : 100% !important;
+  height         : 100% !important;
+  font-size      : 16px !important;
+  line-height    : 16px !important;
+}
+
+.custom-small-icon-btn .mat-mdc-button-touch-target {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+//MAT-LABEL -> TAILWIND BUG FIX
+.mdc-notched-outline__notch { border-right: none; }
+
+//MAT SELECT ROUNDED BORDER
+.rounded-field .mat-mdc-form-field-flex .mdc-notched-outline .mdc-notched-outline__trailing {
+  border-radius: 0 25px 25px 0;
+}
+
+.rounded-field .mat-mdc-form-field-flex .mdc-notched-outline .mdc-notched-outline__leading {
+  border-radius: 25px 0 0 25px;
+  width: 25px !important;
+}
+
+.rounded-field .mat-mdc-form-field-flex {
+  height: 32px;
+  align-items: center;
+}
+
+//MAT SELECT NO PADDING BORDER
+.custom-field-no-bottom-padding .mat-mdc-form-field-subscript-wrapper {
+  height: 0;
+}
+
+//FLOATING LABEL 
+.custom-floating-label .mdc-text-field .mdc-floating-label {
+  transform: translateY(-120%);
+}
+
+
+
+// BACKGROUND IMAGES
+
+.custom-bg-header { 
+  background-image    : url('../public/images/background-image-header-footer.webp');
+  background-size     : cover; 
+  background-repeat   : repeat-x;
+  background-position : center;
+  border              : none;
+}
+
+.custom-editor-bg .ql-toolbar { 
+  background-image    : url('../public/images/background-image-header-footer.webp');
+  background-size     : cover; 
+  background-repeat   : repeat-x;
+  background-position : center;
+  border              : none;
+}
+
+.custom-bg-footer {
+  background-image    : url('../public/images/background-image-header-footer.webp');
+  background-size     : cover; 
+  background-repeat   : repeat-x;
+  background-position : center;
+  border              : none;
+}
+
+.custom-bg-profil {
+  background-image    : url('../public/images/background-image-profil.webp');
+  background-size     : cover; 
+  background-repeat   : repeat-x;
+  background-position : center;
+  border              : none;
+}
+
+.custom-bg-dashboard {
+  background-image    : url('../public/images/background-image-dashboard.webp');
+  background-size     : cover; 
+  background-repeat   : repeat-x;
+  background-position : center;
+  border              : none;
+}
+
+.custom-bg-login, .custom-bg-register {
+  background-image    : url('../public/images/background-image-login.webp');
+  background-size     : cover; 
+  background-repeat   : repeat-x;
+  background-position : center;
+  border              : none;
+}
