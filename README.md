@@ -1,4 +1,4 @@
-# Notes-V2
+# Notes
 
 Application de prise de notes — monorepo.
 
