@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - develop
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/deploy-frontend-on-vps.yml'
+
+defaults:
+  run:
+    working-directory: frontend
 
 jobs:
   build:
@@ -41,7 +48,8 @@ jobs:
           username: ${{ secrets.OVH_VPS_SSH_USER }}
           key: ${{ secrets.OVH_VPS_SSH_PRIVATE_KEY }}
           port: ${{ secrets.OVH_VPS_SSH_PORT }}
-          source: dist/angular-notes/browser/*
+          source: frontend/dist/angular-notes/browser/*
+          strip_components: 1
           target: /var/www/html/
 
       - name: Restart Nginx
